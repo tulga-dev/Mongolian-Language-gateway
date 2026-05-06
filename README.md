@@ -128,6 +128,15 @@ wc -l datasets/processed/sft_v2_train.jsonl datasets/processed/sft_v2_val.jsonl
 
 The v2 generator creates structured Lendex/DataGate examples for credit memo writing, risk classification, ratio explanation, application summaries, collateral assessment, repayment capacity, red flags, lender recommendations, financial statement summaries, and cash-flow lending decisions. It does not train a model.
 
+Build the stricter v3 deterministic lender dataset:
+
+```bash
+python training/scripts/build_lendex_sft_v3.py
+python training/scripts/check_sft_v3_quality.py datasets/processed/sft_v3_train.jsonl
+python training/scripts/check_sft_v3_quality.py datasets/processed/sft_v3_val.jsonl
+wc -l datasets/processed/sft_v3_train.jsonl datasets/processed/sft_v3_val.jsonl
+```
+
 ## Run Benchmarks
 
 ```powershell
@@ -150,7 +159,8 @@ python training/scripts/smoke_infer_qwen3_32b_lora.py \
   --adapter outputs/qwen3_32b_mn_lendex_lora_v2 \
   --max-new-tokens 384 \
   --temperature 0.1 \
-  --fail-on-thinking
+  --fail-on-thinking \
+  --prompts-file training/evals/lendex_smoke_prompts_v3.json
 ```
 
 The smoke script loads the base model in 4-bit mode, attaches the LoRA adapter, disables Qwen3 thinking mode when supported, strips any leaked `<think>...</think>` blocks by default, runs Mongolian Lendex/DataGate prompts, and prints each prompt with the generated answer separated by clear divider lines. It does not retrain the model.

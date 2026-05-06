@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from pathlib import Path
 
@@ -40,6 +41,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-p", type=float, default=0.9)
     parser.add_argument("--strip-thinking", nargs="?", const=True, default=True, type=str_to_bool)
     parser.add_argument("--fail-on-thinking", action="store_true")
+    parser.add_argument("--prompts-file", type=Path, default=None)
     return parser.parse_args()
 
 
@@ -82,6 +84,19 @@ def strip_thinking(text: str) -> str:
 def contains_thinking(text: str) -> bool:
     lowered = text.lower()
     return "<think" in lowered or "</think>" in lowered
+
+
+def load_prompts(path: Path | None) -> list[str]:
+    if path is None:
+        return DEFAULT_PROMPTS
+    if not path.exists():
+        fail(f"Prompts file not found: {path}")
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(data, dict):
+        data = data.get("prompts")
+    if not isinstance(data, list) or not all(isinstance(item, str) and item.strip() for item in data):
+        fail("Prompts file must be a JSON list of non-empty strings, or an object with a prompts list.")
+    return data
 
 
 def load_model(args: argparse.Namespace):
@@ -171,11 +186,14 @@ def generate_answer(torch, tokenizer, model, prompt: str, args: argparse.Namespa
 def main() -> None:
     args = parse_args()
     require_adapter(args.adapter)
+    prompts = load_prompts(args.prompts_file)
     torch, tokenizer, model = load_model(args)
 
     print(SEPARATOR)
     print(f"Base model: {args.base_model}")
     print(f"Adapter: {args.adapter}")
+    if args.prompts_file:
+        print(f"Prompts file: {args.prompts_file}")
     print(
         f"max_new_tokens={args.max_new_tokens} temperature={args.temperature} "
         f"top_p={args.top_p} strip_thinking={args.strip_thinking}"
@@ -183,7 +201,7 @@ def main() -> None:
     print(SEPARATOR)
 
     thinking_seen = False
-    for index, prompt in enumerate(DEFAULT_PROMPTS, start=1):
+    for index, prompt in enumerate(prompts, start=1):
         raw_answer, answer, had_thinking = generate_answer(torch, tokenizer, model, prompt, args)
         if had_thinking:
             thinking_seen = True

@@ -20,6 +20,8 @@ datasets/processed/**
 !datasets/processed/lendex_500_sft.jsonl
 !datasets/processed/sft_v2_train.jsonl
 !datasets/processed/sft_v2_val.jsonl
+!datasets/processed/sft_v3_train.jsonl
+!datasets/processed/sft_v3_val.jsonl
 models/
 model_weights/
 *.safetensors
