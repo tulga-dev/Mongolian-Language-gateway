@@ -18,6 +18,8 @@ datasets/processed/**
 !datasets/processed/
 !datasets/processed/.gitkeep
 !datasets/processed/lendex_500_sft.jsonl
+!datasets/processed/sft_v2_train.jsonl
+!datasets/processed/sft_v2_val.jsonl
 models/
 model_weights/
 *.safetensors
