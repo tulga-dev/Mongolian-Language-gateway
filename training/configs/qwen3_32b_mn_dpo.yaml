@@ -1,0 +1,26 @@
+run_name: qwen3_32b_mn_dpo
+model:
+  family: Qwen
+  base_model: outputs/qwen3_32b_mn_lendex_lora
+  role: production_student
+teacher_evaluator:
+  model: Qwen/Qwen3-235B-A22B-Instruct-2507
+training:
+  stage: dpo_or_orpo_preference_tuning
+  method: dpo
+  beta: 0.1
+  learning_rate: 0.000005
+  epochs: 1
+data:
+  preference_dataset: datasets/processed/mn_lending_preferences.jsonl
+  required_labels:
+    - chosen
+    - rejected
+    - rationale
+    - compliance_category
+safety:
+  prefer_compliance_safe_outputs: true
+  reject_approval_promises: true
+  reject_unsafe_rejection_explanations: true
+outputs:
+  adapter_dir: outputs/qwen3_32b_mn_dpo

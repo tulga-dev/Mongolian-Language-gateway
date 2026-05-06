@@ -1,0 +1,3 @@
+{"id":"general-mn-001","task":"fluency","input":"Монгол хэлээр энгийн, найрсаг мэндчилгээ бич.","expected":"Сайн байна уу? Танд энэ өдрийн мэнд хүргэе.","domain":"general","metadata":{"language":"mn","license":"template"}}
+{"id":"general-mn-002","task":"translation_en_mn","input":"Please translate: The customer asked for more information.","expected":"Харилцагч нэмэлт мэдээлэл хүссэн.","domain":"general","metadata":{"source_language":"en","target_language":"mn","license":"template"}}
+{"id":"general-mn-003","task":"translation_mn_en","input":"Орчуулна уу: Маргааш дахин холбогдоорой.","expected":"Please contact us again tomorrow.","domain":"general","metadata":{"source_language":"mn","target_language":"en","license":"template"}}

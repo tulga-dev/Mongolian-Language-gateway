@@ -1,0 +1,29 @@
+run_name: qwen3_32b_mn_lendex_lora
+model:
+  family: Qwen
+  base_model: Qwen/Qwen3-32B
+  role: production_student
+teacher_evaluator:
+  model: Qwen/Qwen3-235B-A22B-Instruct-2507
+training:
+  stages:
+    - sft_mongolian_instruction_data
+    - lendex_finance_specialization
+  method: lora
+  sequence_length: 8192
+  learning_rate: 0.00005
+  epochs: 2
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 16
+data:
+  sft_dataset: datasets/processed/mn_instruction_sft.jsonl
+  lendex_dataset: datasets/processed/lendex_finance_sft.jsonl
+  validation_benchmarks:
+    - datasets/benchmark/GeneralMongolianBench-v1.jsonl
+    - datasets/benchmark/MongolianBankBench-v1.jsonl
+safety:
+  pii_redaction_required: true
+  compliance_review_required: true
+  google_translate_gold_allowed: false
+outputs:
+  adapter_dir: outputs/qwen3_32b_mn_lendex_lora

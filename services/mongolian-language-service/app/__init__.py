@@ -1,0 +1,1 @@
+"""Mongolian Language Service package."""

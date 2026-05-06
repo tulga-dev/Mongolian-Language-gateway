@@ -1,0 +1,48 @@
+services:
+  api:
+    build:
+      context: ./services/mongolian-language-service
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - postgres
+    volumes:
+      - ./services/mongolian-language-service/app/glossaries:/service/app/glossaries:ro
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-mongolian}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-language}
+      POSTGRES_DB: ${POSTGRES_DB:-mongolian_language}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Optional: enable when a local Qwen3-32B vLLM server is available.
+  # vllm:
+  #   image: vllm/vllm-openai:latest
+  #   command: ["--model", "Qwen/Qwen3-32B", "--served-model-name", "Qwen3-32B-MN-Lendex"]
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./models:/models
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: all
+  #             capabilities: [gpu]
+
+volumes:
+  postgres_data:

@@ -1,0 +1,29 @@
+run_name: qwen3_32b_mn_general_lora
+model:
+  family: Qwen
+  base_model: Qwen/Qwen3-32B
+  role: production_student
+  primary: true
+teacher_evaluator:
+  model: Qwen/Qwen3-235B-A22B-Instruct-2507
+training:
+  stage: continued_pretraining
+  method: lora
+  sequence_length: 8192
+  learning_rate: 0.0001
+  epochs: 1
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 16
+data:
+  train_manifest: datasets/processed/general_mongolian_manifest.jsonl
+  validation_manifest: datasets/benchmark/GeneralMongolianBench-v1.jsonl
+  required_metadata:
+    - source_url
+    - license_status
+    - retrieval_date
+    - allowed_usage
+safety:
+  exclude_raw_customer_pii: true
+  exclude_unlicensed_copyrighted_content: true
+outputs:
+  adapter_dir: outputs/qwen3_32b_mn_general_lora
