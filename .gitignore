@@ -17,6 +17,7 @@ datasets/raw/**
 datasets/processed/**
 !datasets/processed/
 !datasets/processed/.gitkeep
+!datasets/processed/lendex_500_sft.jsonl
 models/
 model_weights/
 *.safetensors
