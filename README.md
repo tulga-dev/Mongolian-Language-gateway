@@ -124,6 +124,22 @@ python training/scripts/run_eval.py --benchmark datasets/benchmark/MongolianBank
 
 The current evaluator is a placeholder heuristic. Production evaluation should call `Qwen3-235B-A22B-Instruct-2507` with the judge prompts in `training/evals/judge_prompts.py`.
 
+## Smoke Test Trained LoRA Adapter
+
+After training `Qwen/Qwen3-32B` with the Lendex/DataGate LoRA adapter on a CUDA GPU, run:
+
+```bash
+export HF_HOME=/workspace/hf-cache
+export HUGGINGFACE_HUB_CACHE=/workspace/hf-cache/hub
+
+python training/scripts/smoke_infer_qwen3_32b_lora.py \
+  --base-model Qwen/Qwen3-32B \
+  --adapter outputs/qwen3_32b_mn_lendex_lora \
+  --max-new-tokens 512
+```
+
+The smoke script loads the base model in 4-bit mode, attaches the LoRA adapter, runs Mongolian Lendex/DataGate prompts, and prints each prompt with the generated answer separated by clear divider lines. It does not retrain the model.
+
 ## Lendex Integration
 
 Lendex can call:
