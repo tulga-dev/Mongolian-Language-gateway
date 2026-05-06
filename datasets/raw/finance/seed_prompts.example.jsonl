@@ -1,0 +1,30 @@
+{"id":"lendex-seed-001","prompt":"Би 5 сая төгрөгийн хэрэглээний зээл авах боломжтой юу?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-002","prompt":"Миний зээл заавал батлагдах уу?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-003","prompt":"Зээлийн эцсийн шийдвэр хэзээ гарах вэ?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-004","prompt":"Орлогоо нотлох ямар бичиг баримт хэрэгтэй вэ?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-005","prompt":"Би цалингийн орлоготой, 12 сарын хугацаатай зээл хүсэж байна.","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-006","prompt":"Барьцаанд автомашин тавьж болох уу?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-007","prompt":"Зээлийн хүү, шимтгэлийн нөхцөлийг тайлбарлаж өгнө үү.","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-008","prompt":"Би хувиараа хөдөлмөр эрхэлдэг бол зээл авахад юу бүрдүүлэх вэ?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-009","prompt":"Зээл татгалзсан шалтгааныг хэрхэн аюулгүй тайлбарлах вэ?","domain":"compliance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-010","prompt":"Хүү шимтгэлгүй гэж бичсэн зар сурталчилгааг compliance-safe болгож зас.","domain":"compliance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-011","prompt":"Зээлийн хүсэлтэд утасны дугаар дутуу байна гэж эелдгээр асуу.","domain":"borrower_chat","language":"mn","contains_pii":false}
+{"id":"lendex-seed-012","prompt":"Зээлийн хүсэлтэд сарын орлого дутуу байна гэж эелдгээр асуу.","domain":"borrower_chat","language":"mn","contains_pii":false}
+{"id":"lendex-seed-013","prompt":"Зээлийн хүсэлтэд хугацаа дутуу байна гэж эелдгээр асуу.","domain":"borrower_chat","language":"mn","contains_pii":false}
+{"id":"lendex-seed-014","prompt":"Би 10 сая төгрөг 24 сараар авах хүсэлтэй байна. Ямар дараагийн алхам вэ?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-015","prompt":"Орон сууцны зээл ба хэрэглээний зээлийн ялгааг товч тайлбарла.","domain":"finance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-016","prompt":"Бизнесийн зээлийн хүсэлтэд ямар мэдээлэл шаардлагатай вэ?","domain":"finance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-017","prompt":"Зээлийн гэрээ байгуулахаас өмнө юуг анхаарах вэ?","domain":"legal","language":"mn","contains_pii":false}
+{"id":"lendex-seed-018","prompt":"Зээлийн урьдчилсан шалгуур тэнцсэн гэдгийг эцсийн зөвшөөрөл амлахгүйгээр хэл.","domain":"compliance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-019","prompt":"Customer asks in English: Can you guarantee my loan approval? Answer safely.","domain":"lending","language":"mixed","contains_pii":false}
+{"id":"lendex-seed-020","prompt":"Би ажилгүй байгаа ч зээл авах боломж байгаа юу?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-021","prompt":"Орлого тогтмол биш бол ямар нэмэлт мэдээлэл хэрэгтэй вэ?","domain":"lending","language":"mn","contains_pii":false}
+{"id":"lendex-seed-022","prompt":"Барьцаагүй зээлийн эрсдэлийг энгийнээр тайлбарла.","domain":"finance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-023","prompt":"Зээлийн хэмжээ, хугацаа, орлого, ажил эрхлэлт, барьцаа, зээлийн төрөл, утасны дугаарыг асуух мессеж бич.","domain":"borrower_chat","language":"mn","contains_pii":false}
+{"id":"lendex-seed-024","prompt":"Зээл батлагдсан гэж шууд хэлсэн өгүүлбэрийг compliance-safe болгож зас.","domain":"compliance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-025","prompt":"Банкны эцсийн хяналтын тайлбарыг эелдэг, ойлгомжтой бич.","domain":"compliance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-026","prompt":"Зээлийн хүсэлтийн мэдээллээс дутуу талбаруудыг жагсаах заавар бич.","domain":"extraction","language":"mn","contains_pii":false}
+{"id":"lendex-seed-027","prompt":"Loan amount 3 million, term 18 months, income missing. Ask in Mongolian for missing income.","domain":"borrower_chat","language":"mixed","contains_pii":false}
+{"id":"lendex-seed-028","prompt":"Сарын төлөлтийн талаар баталгаагүй, ерөнхий тайлбар бич.","domain":"finance","language":"mn","contains_pii":false}
+{"id":"lendex-seed-029","prompt":"Харилцагчийн мэдээллийг шалгаж байгаа тухай богино мессеж бич.","domain":"borrower_chat","language":"mn","contains_pii":false}
+{"id":"lendex-seed-030","prompt":"Датагейтийн OCR-оос гарсан зээлийн өргөдлийн текстийг бүтэцлэгдсэн JSON болгох даалгавар бич.","domain":"datagate","language":"mn","contains_pii":false}
