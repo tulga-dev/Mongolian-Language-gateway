@@ -75,6 +75,19 @@ Health check:
 Invoke-RestMethod http://localhost:8080/health
 ```
 
+## Run Tests
+
+From the repository root:
+
+```powershell
+python -m compileall services training
+cd services/mongolian-language-service
+pip install -e ".[dev]"
+pytest
+```
+
+The test suite uses the mock Qwen-compatible provider by default, so it does not train a model, scrape websites, or require a live OpenAI/vLLM endpoint.
+
 ## API Endpoints
 
 - `GET /health`
@@ -122,6 +135,20 @@ Lendex can call:
 
 Never rely on model output as final loan approval. Final approval must remain with the lender's review system.
 
+Recommended borrower chat flow:
+
+1. Send recent borrower messages to `/v1/chat` with any known `borrower_context`.
+2. Read `missing_application_fields` and ask the borrower only for missing values.
+3. Run any outgoing lending copy through `/v1/compliance-check`.
+4. Send compliance-sensitive responses to human review when `compliance_warnings` is non-empty or confidence is low.
+
+Recommended extraction flow:
+
+1. Send borrower free text to `/v1/extract`.
+2. Store structured fields: `loan_amount`, `loan_term_months`, `monthly_income`, `employment_status`, `collateral`, `loan_type`, and `phone_number`.
+3. Use `missing_fields` to continue the application intake.
+4. Log only `redacted_text`; never log raw phone numbers, register numbers, email addresses, or borrower PII.
+
 ## Datagate Integration
 
 Datagate can call:
@@ -131,3 +158,12 @@ Datagate can call:
 - `/v1/evaluate` to run benchmark suites during model promotion
 
 For regulated workflows, keep request/response audit metadata while redacting borrower PII from logs.
+
+After OCR or document parsing:
+
+1. Normalize OCR text and remove obvious parsing artifacts before calling the service.
+2. Call `/v1/extract` for loan application fields when the document contains borrower intent or application data.
+3. Call `/v1/translate` when Datagate needs English <-> Mongolian document text.
+4. Call `/v1/glossary/check` for financial/legal terminology before sending text downstream.
+5. Keep OCR source metadata, parser version, model version, confidence, and compliance-check results for audit.
+6. Do not use parsed customer documents as training data unless consent, licensing, PII controls, and legal review explicitly allow it.

@@ -84,10 +84,10 @@ class ExtractionRequest(BaseModel):
 
 
 class LoanApplicationExtraction(BaseModel):
-    loan_amount: str | None = None
-    term: str | None = None
-    income: str | None = None
-    employment: str | None = None
+    loan_amount: int | None = None
+    loan_term_months: int | None = None
+    monthly_income: int | None = None
+    employment_status: str | None = None
     collateral: str | None = None
     loan_type: str | None = None
     phone_number: str | None = None
