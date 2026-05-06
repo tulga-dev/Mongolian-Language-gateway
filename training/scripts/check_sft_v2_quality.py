@@ -80,15 +80,16 @@ def metric_count(text: str) -> int:
     return sum(1 for term in METRIC_TERMS if term in lowered)
 
 
-def validate_row(path: Path, line_number: int, row: dict) -> str:
+def validate_row(path: Path, line_number: int, row: dict) -> tuple[str, str]:
     meta = metadata(row)
     domain = meta.get("domain")
+    source = meta.get("source")
     messages = row.get("messages")
     if domain not in REQUIRED_DOMAINS:
         fail(path, line_number, f"missing or invalid domain: {domain}")
     if meta.get("contains_pii") is not False:
         fail(path, line_number, "contains_pii must be false")
-    if meta.get("source") != "synthetic_lendex_credit_analyst_v2":
+    if source != "synthetic_lendex_credit_analyst_v2":
         fail(path, line_number, "unexpected source metadata")
     if not isinstance(messages, list) or [m.get("role") for m in messages] != ["system", "user", "assistant"]:
         fail(path, line_number, "messages must use system/user/assistant format")
@@ -111,7 +112,7 @@ def validate_row(path: Path, line_number: int, row: dict) -> str:
                 fail(path, line_number, f"credit memo missing required field: {item}")
     if meta.get("numeric_example") is True and metric_count(output) < 1:
         fail(path, line_number, "numeric example has no calculated metric")
-    return domain
+    return domain, source
 
 
 def main() -> None:
@@ -122,13 +123,27 @@ def main() -> None:
     rows = load(args.path)
     if not rows:
         raise SystemExit(f"{args.path}: no rows found")
-    counts: Counter[str] = Counter()
+    domain_counts: Counter[str] = Counter()
+    source_counts: Counter[str] = Counter()
     for line_number, row in rows:
-        counts[validate_row(args.path, line_number, row)] += 1
-    missing_domains = REQUIRED_DOMAINS - set(counts)
+        domain, source = validate_row(args.path, line_number, row)
+        domain_counts[domain] += 1
+        source_counts[source] += 1
+    missing_domains = REQUIRED_DOMAINS - set(domain_counts)
     if missing_domains:
         raise SystemExit(f"{args.path}: missing domains: {sorted(missing_domains)}")
-    print(json.dumps({"path": str(args.path), "rows": len(rows), "domains": counts}, ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            {
+                "path": str(args.path),
+                "rows": len(rows),
+                "domains": domain_counts,
+                "sources": source_counts,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

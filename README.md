@@ -123,6 +123,7 @@ Generate the higher-quality Mongolian credit analyst SFT v2 dataset and run regr
 python training/scripts/build_lendex_sft_v2.py
 python training/scripts/check_sft_v2_quality.py datasets/processed/sft_v2_train.jsonl
 python training/scripts/check_sft_v2_quality.py datasets/processed/sft_v2_val.jsonl
+wc -l datasets/processed/sft_v2_train.jsonl datasets/processed/sft_v2_val.jsonl
 ```
 
 The v2 generator creates structured Lendex/DataGate examples for credit memo writing, risk classification, ratio explanation, application summaries, collateral assessment, repayment capacity, red flags, lender recommendations, financial statement summaries, and cash-flow lending decisions. It does not train a model.
