@@ -147,11 +147,13 @@ export HUGGINGFACE_HUB_CACHE=/workspace/hf-cache/hub
 
 python training/scripts/smoke_infer_qwen3_32b_lora.py \
   --base-model Qwen/Qwen3-32B \
-  --adapter outputs/qwen3_32b_mn_lendex_lora \
-  --max-new-tokens 512
+  --adapter outputs/qwen3_32b_mn_lendex_lora_v2 \
+  --max-new-tokens 384 \
+  --temperature 0.1 \
+  --fail-on-thinking
 ```
 
-The smoke script loads the base model in 4-bit mode, attaches the LoRA adapter, runs Mongolian Lendex/DataGate prompts, and prints each prompt with the generated answer separated by clear divider lines. It does not retrain the model.
+The smoke script loads the base model in 4-bit mode, attaches the LoRA adapter, disables Qwen3 thinking mode when supported, strips any leaked `<think>...</think>` blocks by default, runs Mongolian Lendex/DataGate prompts, and prints each prompt with the generated answer separated by clear divider lines. It does not retrain the model.
 
 ## Lendex Integration
 
